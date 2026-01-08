@@ -1,0 +1,79 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+    margin: 0;
+}
+
+div.header {
+    font-size: 1.2em;
+    border-radius: 8px;
+    border: 1px solid black;
+    background-color: rgba(0, 0, 96, 1);
+    padding: 8px 16px;
+    margin-bottom: 8px;
+}
+
+div.table-container {
+    height: 100%;
+    overflow-y: auto;
+    margin-bottom: 8px;
+}
+
+table {
+    width: 100%;
+}
+
+thead tr {
+    background-color: darkblue;
+}
+
+tr:nth-child(odd) {
+    background-color: rgb(16, 16, 96);
+}
+
+tr:nth-child(even) {
+    background-color: rgb(0, 0, 96);
+}
+
+td {
+    padding: 8px 16px;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    padding: 8px 16px;
+    background-color: darkblue;
+}
+
+.totalHours {
+    float: right;
+}
+
+p {
+    margin: 0 0 8px 0;
+    padding: 8px 16px;
+}
+
+select {
+    margin: 8px;
+    padding: 8px;
+}
+
+h3 {
+    width: fit-content;
+    margin: 32px auto;
+}
+
+@media (max-width: 768px) {
+    div.header {
+        border-radius: 0px;
+    }
+
+    table {
+        width: calc(100dvw - 16px);
+        margin: 0 8px;
+    }
+}

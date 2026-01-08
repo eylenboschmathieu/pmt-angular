@@ -1,0 +1,15 @@
+<div [class.cross]="cross_day">
+    <h3>{{ day.date | date:"E d MMM" }}</h3>
+    <ol>
+        @for (shift of day.shifts; track $index) {
+            <li [class]="shift === true ? 'check': 'cross'">
+                <span>{{ shift_strings[$index] }}</span>
+                @if (shift) {
+                    <button class="check" (click)="toggleRequest($index)">&#x2714;</button>
+                } @else {
+                    <button class="cross" (click)="toggleRequest($index)">&#x2716;</button>
+                }
+            </li>
+        }
+    </ol>
+</div>

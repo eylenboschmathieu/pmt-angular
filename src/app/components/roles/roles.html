@@ -1,0 +1,12 @@
+<h2>All roles:</h2>
+
+@if (roles.length == 0) {
+<p>No roles.</p>
+}
+@else {
+<ul class="list-group m-2">
+    @for (role of roles; track $index) {
+    <li class="list-group-item">{{ role.name }}</li>
+    }
+</ul>
+}

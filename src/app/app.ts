@@ -1,12 +1,19 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AuthService } from './services/AuthService';
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.html',
+    styleUrl: './app.css',
+    imports: [RouterOutlet],
+    providers: []
 })
-export class App {
-  protected readonly title = signal('pmt-angular');
+export class AppComponent {
+    constructor(public auth: AuthService) { }
+    
+    logout() {
+        this.auth.signout();
+    }
 }

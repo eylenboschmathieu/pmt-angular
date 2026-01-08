@@ -1,0 +1,102 @@
+:host {
+    width: calc(33% - 6px);
+    margin: 8px 8px 0 0;
+}
+
+div {
+    border-radius: 8px;
+    width: 100%;
+    border: 1px black solid;
+    background-color: rgb(0, 0, 96);
+    font-size: 1.2em;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+div.cross {
+    background-color: rgb(64, 0, 32);
+}
+
+h3 {
+    font-size: 1.2em;
+    padding: 8px;
+    margin-bottom: 0;
+}
+
+ol {
+    padding: 0px 16px 0px 16px;
+    list-style-type: none;
+    display: block;
+}
+
+li {
+    margin: 8px;
+    padding: 0 8px;
+}
+
+button {
+    border-radius: 8px;
+    border: 1px black solid;
+    margin-left: 32px;
+    padding: 0 8px;
+    font-size: large;
+}
+
+button.check, button.cross {
+    cursor: pointer;
+}
+
+button.check {
+    color: green;
+}
+
+button.cross {
+    color: red;
+}
+
+span.check:hover, span.cross:hover {
+    color: black;
+}
+
+li.check {
+    border-left: green 4px solid;
+}
+
+li.cross {
+    border-left: red 4px solid;
+}
+
+button.locked {
+    background-color: black;
+    cursor: not-allowed;
+    border: 1px white solid;
+}
+
+button.unlocked {
+    background-color: lightgray;
+}
+
+button.unlocked:hover {
+    background-color: lightblue;
+}
+
+@media (max-width: 768px) {
+    :host {
+        width: 100%;
+        margin: 8px 0 0 0;
+    }
+
+    div {
+        width: calc(100dvw - 64px);
+        margin: 0px 32px;
+    }
+
+    li, button {
+        font-size: 1.2em;
+    }
+}

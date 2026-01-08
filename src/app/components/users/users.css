@@ -1,0 +1,74 @@
+.active {
+    background-color: rgb(32, 32, 192);
+}
+
+.inactive {
+    background-color: rgb(32, 32, 32);
+}
+
+i {
+    align-self: center;
+    font-size: 1.8em;
+}
+
+button {
+    padding: 8px;
+    text-decoration: none;
+    border: 1px solid black;
+    color: white;
+    background-color: gray;
+    border-radius: 8px;
+    width: 128px;
+}
+
+button:hover {
+    color: pink;
+}
+
+ol {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 12px;
+    overflow-y: scroll;
+    max-height: calc(100dvh - 128px);
+    
+}
+
+li {
+    border: 1px solid black;
+    border-radius: 8px;
+    margin: 4px 0;
+    color: white;
+}
+
+li>div {
+    display: inline-block;
+    margin: 8px;
+    width: calc(100% - 64px);
+}
+
+span {
+    display: block;
+    margin: 4px;
+    overflow-x: hidden;
+}
+
+a.edit {
+    padding: 8px;
+    text-decoration: none;
+    color: white;
+    background-color: gray;
+    border-radius: 8px;
+    float: right;
+    width: auto;
+    position: relative;
+    top: 8px;
+    right: 8px;
+    border: 1px solid black;
+}
+
+@media (max-width: 768px) {
+    ol {
+        margin: 0 16px 12px 16px;
+    }
+}

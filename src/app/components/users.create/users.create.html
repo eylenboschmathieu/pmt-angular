@@ -1,0 +1,56 @@
+<a class="homelink" routerLink="/home">&#8594; Home</a>
+
+@if (initialized) {
+    <h2>New User</h2>
+    <form class="form-group" [formGroup]="addForm" (ngSubmit)="addUser()">
+        <label>Email:</label>
+        <input type="text" formControlName="email" id="email" required/>
+        @if (addForm.get("email")?.invalid && addForm.get("email")?.touched) {
+            <div class="alert alert-danger ms-2 mt-2 p-2">
+                @if (addForm.get("email")?.errors?.["required"]) {
+                    <div>Required</div>
+                }
+                @if (addForm.get("email")?.errors?.["email"]) {
+                    <div>Must be a valid gmail address</div>
+                }
+            </div>
+        }
+        <label>Confirm email:</label>
+        <input type="text" formControlName="emailConfirmation" id="emailConfirmation" required/>
+        @if (addForm.get("emailConfirmation")?.invalid && addForm.get("emailConfirmation")?.touched) {
+            <div class="alert alert-danger ms-2 mt-2 p-2">
+                @if (addForm.get("emailConfirmation")?.errors?.["emailMismatch"]) {
+                    <div>Email mismatch</div>
+                }
+                @if (addForm.get("emailConfirmation")?.errors?.["required"]) {
+                    <div>Required</div>
+                }
+            </div>
+        }
+        <div class="mt-4">
+            <h3>Selected Roles</h3>
+            <ul>
+                @for (role of selectedRoles; track $index) {
+                    <li>
+                        <span>{{ role.name }}</span>
+                        <i class="bi bi-dash" (click)="removeTag(role.id)"></i>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div>
+            <div class="lists">
+                <h3>Available Roles</h3>
+                <ul>
+                    @for (role of availableRoles; track $index) {
+                        <li>
+                            <span>{{ role.name }}</span>
+                            <i class="bi bi-plus" (click)="addTag(role.id)"></i>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!addForm.valid">Create</button>
+    </form>
+}

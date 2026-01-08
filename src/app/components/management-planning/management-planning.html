@@ -1,0 +1,76 @@
+@if (initialized) {
+    <a class="homelink" routerLink="/home">&#8594; Home</a>
+    <section class="header">
+        <select [(ngModel)]="selected_date" (ngModelChange)="selectDate($event)">
+            @for (date of dates; track $index) {
+                <option [ngValue]="date">{{ date.date | date:"MMMM yyyy" }}</option>
+            }
+        </select>
+        @if (selected_date.locked) {
+            <i class="bi bi-lock lock" (click)="lockMonth(false)"></i>
+        } @else {
+            <i class="bi bi-unlock unlock" (click)="lockMonth(true)"></i>
+        }
+    </section>
+
+    <section class="data">
+        @for (day of days; track $index ) { 
+            @for (shift of day.shifts; track $index) {
+                <div class="shift">
+                    <div>
+                        <span class="day">{{ day.date | date: "E d MMM" }}</span>
+                        <span class="hours">{{ shiftService.ShiftHours[$index % shiftService.ShiftHours.length].from | date: "HH:mm" }} -
+                        {{ shiftService.ShiftHours[$index % shiftService.ShiftHours.length].to| date: "HH:mm" }}</span>
+                    </div>
+                    @if (shift === null) {
+                        <p class="warning">Nobody volunteered for this shift!</p>
+                    } @else {
+                        @if (shift.volunteered.length + shift.confirmed.length < 2) {  <!-- Is set to a testing value -->
+                            <p class="warning">Not enough volunteers!</p>
+                        } @else {
+                            <ul>
+                                @for (pick of shift.confirmed; track $index) {
+                                    <li class="person">
+                                        @if (pick.isIntern) {
+                                            <i class="left">&#127891;</i>
+                                        } @else {
+                                            <i class="left">&#128657;</i>
+                                        }
+                                            <span>{{ pick.name }}</span>
+                                            @if (!selected_date.locked) {
+                                                <i class="bi bi-trash trash" (click)="removePick(pick.id, shift)"></i>
+                                            }
+                                    </li>
+                                }
+
+                                @if (!selected_date.locked && bShowDropdown == -1 && shift.volunteered.length > 0 && shift.confirmed.length < 3) {
+                                    <li>
+                                        <i class="bi bi-plus-circle add-person" (click)="this.bShowDropdown = $index"></i>
+                                    </li>
+                                }
+
+                                @if (bShowDropdown == $index) {
+                                    <li>
+                                        <select ngModel (ngModelChange)="selectPick($event, shift)">
+                                            <option value="" disabled>Select person to add</option>
+                                            @for (volunteer of shift.volunteered; track $index) {
+                                                <option [ngValue]="volunteer.id">
+                                                    @if (volunteer.isIntern) {
+                                                        <i>&#127891;</i>
+                                                    } @else {
+                                                        <i>&#128657;</i>
+                                                    }
+                                                    <span> {{ volunteer.name }}</span>
+                                                </option>
+                                            }
+                                        </select>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    }
+                </div>
+            }
+        }
+    </section>
+}

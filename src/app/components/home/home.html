@@ -1,0 +1,49 @@
+<h1 class="text-center mt-2 text-light">Paramedic Management Tool</h1>
+
+<section>
+    <span>🚑</span><h2>Paramedic</h2>
+    <div class="d-flex flex-wrap">
+        <a routerLink="/paramedic/requested" class="link">
+            <div>
+                <h3>Requested</h3>
+                <p>
+                    Set which shifts you want to work for a given month
+                </p>
+            </div>
+        </a>
+        <a routerLink="/paramedic/accepted" class="link">
+            <div>
+                <h3>Accepted</h3>
+                <p>
+                    List of accepted shifts to work in a given month
+                </p>
+            </div>
+        </a>
+    </div>
+</section>
+
+@if (auth.Roles.includes("Admin") || auth.Roles.includes("Management")) {
+    <section>
+        <span>&#128187;</span><h2>Management</h2>
+        <div class="d-flex flex-wrap">
+            <a routerLink="/users" class="link">
+                <div>
+                    <h3>People</h3>
+                    <p>List of people. Add people, or set people inactive.</p>
+                </div>
+            </a>
+            <a routerLink="/management/planning" class="link">
+                <div>
+                    <h3>Planning</h3>
+                    <p>Choose which people do which shifts in a given month.</p>
+                </div>
+            </a>
+            <a routerLink="/home" class="link">
+                <div>
+                    <h3>Overview</h3>
+                    <p>Show how many hours people worked in the last 12 months.</p>
+                </div>
+            </a>
+        </div>
+    </section>
+}

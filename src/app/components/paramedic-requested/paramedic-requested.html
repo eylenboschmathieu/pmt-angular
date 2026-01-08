@@ -1,0 +1,31 @@
+<a class="homelink" routerLink="/home">&#8594; Home</a>
+@if (initialized) {
+    <section class="header">
+        @if (users.length > 1) {
+            <select [(ngModel)]="selected_user" (ngModelChange)="selectUser($event)">
+            @for (user of users; track $index) {
+                <option [ngValue]="user">
+                    <span>
+                        <i>{{ user.icon }}</i> {{ user.name }}
+                    </span>
+                </option>
+            }
+            </select>
+        } @else {
+            <p>{{ users[0].name }}</p>
+        }
+        <select [(ngModel)]="selected_date" (ngModelChange)="selectDate($event)">
+            @for (date of dates; track $index) {
+                <option [ngValue]="date">{{ date.date | date:"MMMM yyyy" }}</option>
+            }
+        </select>
+    </section>
+
+    <section class="data">
+        @for (day of days; track $index) {
+            <app-paramedic-requested-day [day]="day" (onShiftToggle)="onShiftToggle($event)">
+
+            </app-paramedic-requested-day>
+        }
+    </section>
+}

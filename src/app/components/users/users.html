@@ -1,0 +1,16 @@
+<a class="homelink" routerLink="/home">&#8594; Home</a>
+<button routerLink="new">Add User</button>
+
+<!-- <td scope="row" [class]="user.active ? 'active' : 'inactive'" (click)="toggleActive(user.id)"><i class="bi bi-slash-circle"></i></td> -->
+
+<ol>
+    @for (user of users; track $index) {
+        <li [class]="user.active ? 'active' : 'inactive'">
+            <div>
+                <span>{{ user.name ? user.name : "/" }}</span>
+                <span>{{ user.email }}</span>
+            </div>
+            <a [routerLink]="['/user', user.id]" class="edit"><i class="bi bi-gear"></i></a>
+        </li>
+    }
+</ol>

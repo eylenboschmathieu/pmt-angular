@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    max-width: 768px;
+    margin: auto !important;
+    background-color: rgb(64, 64, 224) !important;
+    color: white !important;
+    overflow-y: hidden;
+}
+
+a.homelink {
+    display: inline-block;
+    margin: 4px;
+    padding: 8px;
+    text-decoration: none;
+    color: white;
+}
+
+a.homelink:hover {
+    color: pink;
+}
+
+@media (max-width: 768px) {
+    a.homelink {
+        margin: 4px 16px;
+        padding: 8px;
+        text-decoration: none;
+        border: 1px solid black;
+        background-color: gray;
+        border-radius: 8px;
+        width: 128px;
+    }
+}

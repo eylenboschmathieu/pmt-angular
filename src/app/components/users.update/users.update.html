@@ -1,0 +1,48 @@
+<a class="homelink" routerLink="/home">&#8594; Home</a>
+
+@if (initialized) {
+    <form class="form-group" [formGroup]="updateForm" (ngSubmit)="updateUser()">
+        <div>
+            <label>Name:</label>
+            <input type="text" formControlName="name" id="name"/>
+        </div>
+        <div>
+            <label>Email:</label>
+            <input type="text" class="read-only" formControlName="email" id="email" [readonly]="true" />
+        </div>
+        <div>
+            <label>Is active:</label>
+            <input type="checkbox" formControlName="isActive" id="isActive"/>
+        </div>
+        <div>
+            <label>Created by:</label>
+            <input type="text" class="read-only" formControlName="createdBy" id="createdBy" [readonly]="true"/>
+        </div>
+        
+        <div class="mt-4">
+            <h3>Selected Roles</h3>
+            <ul>
+                @for (role of user.roles; track $index) {
+                    <li>
+                        <span>{{ role.name }}</span>
+                        <i class="bi bi-dash" (click)="removeTag(role.id)"></i>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div>
+            <div class="lists">
+                <h3>Available Roles</h3>
+                <ul>
+                    @for (role of availableRoles; track $index) {
+                        <li>
+                            <span>{{ role.name }}</span>
+                            <i class="bi bi-plus" (click)="addTag(role.id)"></i>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <button type="submit" [disabled]="!updateForm.valid">Update</button>
+    </form>
+}

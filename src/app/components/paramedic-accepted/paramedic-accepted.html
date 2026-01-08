@@ -1,0 +1,47 @@
+<a class="homelink" routerLink="/home">&#8594; Home</a>
+@if (initialized) {
+    <div class="header">
+        @if (users.length > 1) {
+            <select [(ngModel)]="selected_user" (ngModelChange)="selectUser($event)">
+                @for (user of users; track $index) {
+                    <option class="option" [ngValue]="user">{{ user.name }}</option>
+                }
+            </select>
+        } @else {
+            <p>{{users[0].name}}</p>
+        }
+        <select [(ngModel)]="selected_date" (ngModelChange)="selectDate($event)">
+            @for (date of dates; track $index) {
+                <option [ngValue]="date.date">{{ date.date | date:"MMMM yyyy" }}</option>
+            }
+        </select>
+    </div>
+
+    @if (accepted_shifts && accepted_shifts.shifts.length > 0) {
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 128px">Date</th>
+                        <th>
+                            <span>Shifts ({{ accepted_shifts.shifts.length }})</span>
+                            <span class="totalHours">Total hours: {{ accepted_shifts.totalHours }}</span>
+                        </th>
+                    <tr>
+                </thead>
+                <tbody>
+                    @if (accepted_shifts != null) {       
+                        @for (shift of accepted_shifts.shifts; track $index) {
+                            <tr>
+                                <td>{{shift.from |  date:'E d MMM'}}</td>
+                                <td>{{shift.from | date:'HH:mm'}} - {{shift.to | date:'HH:mm'}}</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    } @else {
+        <h3>No shifts for this month</h3>
+    }
+}
