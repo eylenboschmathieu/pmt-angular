@@ -43,7 +43,7 @@ export class AuthService {
                 callback: this.handleCredentialResponse.bind(this),
                 auto_select: false,
                 cancel_on_tap_outside: true,
-                login_uri: environment.LOGIN_URI,
+                login_uri: environment.ENDPOINT_URI + "/login",
                 color_scheme: "dark"
             });
             // google.accounts.id.prompt();  // One Tap
@@ -57,7 +57,7 @@ export class AuthService {
     handleCredentialResponse(google_response: any) {  // callback for google login
         console.log("handleCredentialResponse()");
         const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8')
-        this.http.post<AuthResponse>(environment["LOGIN_URI"], JSON.stringify(google_response.credential), { withCredentials: true, headers: headers }).subscribe({
+        this.http.post<AuthResponse>(environment.ENDPOINT_URI + "/login", JSON.stringify(google_response.credential), { withCredentials: true, headers: headers }).subscribe({
             next: (res: any) => {
                 if (res) {
                     this._access_token = res.access_token
@@ -105,7 +105,7 @@ export class AuthService {
         this._accessInProgress.next(true);
 
         console.log("AuthService->access")
-        return this.http.post<string>(environment.ACCESS_URI, null, { withCredentials: true }).pipe(
+        return this.http.post<string>(environment.ENDPOINT_URI + "/access", null, { withCredentials: true }).pipe(
             switchMap((res: any) => {
                 console.log("AuthService.access->success")
                 this._access_token = res.access_token
@@ -141,7 +141,7 @@ export class AuthService {
         this._refreshInProgress.next(true)
 
         console.log("AuthService->refresh")
-        return this.http.post<{ response: AuthResponse }>(environment.REFRESH_URI, null, { withCredentials: true }).pipe(
+        return this.http.post<{ response: AuthResponse }>(environment.ENDPOINT_URI + "/refresh", null, { withCredentials: true }).pipe(
             tap((success: any) => {
                 if (!success) {
                     console.log("Refresh not successful");
@@ -214,7 +214,7 @@ export class AuthService {
     }
 
     signout() {
-        this.http.post(environment.LOGOUT_URI, null, { withCredentials: true }).subscribe({
+        this.http.post(environment.ENDPOINT_URI + "/logout", null, { withCredentials: true }).subscribe({
             next: (res: any) => {
                 console.log("signout()");
                 this.clear()

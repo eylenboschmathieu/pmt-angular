@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment.development';
 
 export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
-    if ([environment.LOGIN_URI, environment.ACCESS_URI, environment.REFRESH_URI].includes(req.url))
+    if ([environment.ENDPOINT_URI + "/login", environment.ENDPOINT_URI + "/access", environment.ENDPOINT_URI + "refresh"].includes(req.url))
         
         return next(req);
 

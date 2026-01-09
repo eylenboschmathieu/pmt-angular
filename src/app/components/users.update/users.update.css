@@ -74,6 +74,7 @@ li span {
 @media (max-width: 768px) {
     form {
         padding: 16px;
+        overflow-y: auto;
     }
 
     label, input, button {

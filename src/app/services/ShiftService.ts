@@ -4,6 +4,7 @@ import { catchError, map, Observable, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { DayRequest } from '../entities/DayRequest';
 import { DateDTO } from '../entities/DateRequest';
+import { environment } from '../../environments/environment.development';
 
 export class PlannedUser {
     id!: number  // Id of the request, not the user
@@ -42,7 +43,7 @@ export class UpdateShiftPlanningDTO {
 export class ShiftService {
     constructor(private http: HttpClient) {}
 
-    url: string = "https://api.localhost:5015/";
+    url: string = environment.ENDPOINT_URI;
     private shift_hours!: ShiftHours[]
 
     get ShiftHours(): ShiftHours[] {

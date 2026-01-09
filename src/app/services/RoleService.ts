@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { catchError, tap } from "rxjs";
 import { Observable, of } from "rxjs";
 import { Role } from "../entities/Role";
+import { environment } from "../../environments/environment.development";
 
 export { Role } from "../entities/Role";
 
@@ -10,7 +11,7 @@ export { Role } from "../entities/Role";
 providedIn: 'root',
 })
 export class RoleService {
-    private url = "https://api.localhost:5015/roles";
+    private url = environment.ENDPOINT_URI + "/roles";
 
     constructor(private http: HttpClient) {}
 

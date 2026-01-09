@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, FormControl, ReactiveFormsModule, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms'
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Role } from '../../entities/Role';
 import { RoleService } from '../../services/RoleService';
 import { UserService, NewUserDTO } from '../../services/user-service';
 
 @Component({
     selector: 'app-users.new.component',
-    imports: [FormsModule, ReactiveFormsModule],
+    imports: [FormsModule, ReactiveFormsModule, RouterLink],
     templateUrl: './users.create.html',
     styleUrl: './users.create.css'
 })

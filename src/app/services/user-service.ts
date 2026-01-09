@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, ObjectUnsubscribedError, Observable, of, tap } from 'rxjs';
 import { Role } from './RoleService';
+import { environment } from '../../environments/environment.development';
 
 export class NewUserDTO {
     public Email: string = null!;
@@ -44,7 +45,7 @@ export class UserSelectDTO { // Basic list of usernames with their internal id
 export class UserService {
     constructor(private http: HttpClient) { }
 
-    url: string = "https://api.localhost:5015/users";
+    url: string = environment.ENDPOINT_URI + "/users";
 
     all(): Observable<UserResponse[]> {  // Response returns {Id, Name, Email, CreatedBy}*
         return this.http.get<UserResponse[]>(this.url).pipe(
