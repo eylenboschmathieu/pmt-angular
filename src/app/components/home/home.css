@@ -19,6 +19,11 @@ section > h2 {
     text-decoration: underline;
 }
 
+section h2 {
+    display: inline;
+    margin-left: 16px;
+}
+
 span {
     font-size:32px;
 }

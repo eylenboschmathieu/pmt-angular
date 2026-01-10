@@ -57,7 +57,7 @@ export class ShiftService {
 
     // Init shift hours this app uses
     get_shift_hours(): void {
-        this.http.get<ShiftHoursDTO[]>(this.url + "shifts").pipe(
+        this.http.get<ShiftHoursDTO[]>(this.url + "/shifts").pipe(
             tap(response => console.log(response)),
             catchError(this.handleError("get_shift_hours", [])),
             map((dto: ShiftHoursDTO[]) =>
@@ -77,7 +77,7 @@ export class ShiftService {
     get_planning_dates(): Observable<DateDTO[]> {
         // C# DateOnly objects are fetched from backend, so have to map them to Typescript Date objects.
         // Are treated as strings otherwise
-        return this.http.get<DateDTO[]>(this.url + "planning/dates").pipe(
+        return this.http.get<DateDTO[]>(this.url + "/planning/dates").pipe(
             tap(req => console.log(req)),
             catchError(this.handleError("get_planning_dates", [])),
             map((dto: DateDTO[]) =>
@@ -92,7 +92,7 @@ export class ShiftService {
 
     // Get all request data of a certain user for the chosen year/month
     get_requested(userId: number, year: number, month: number): Observable<DayRequest[]> {
-        return this.http.get<DayRequest[]>(this.url + "requests/" + userId + "/" + year + "/" + month).pipe(
+        return this.http.get<DayRequest[]>(this.url + "/requests/" + userId + "/" + year + "/" + month).pipe(
             tap(req => console.log(req)),
             catchError(this.handleError("get_requested", <DayRequest[]>[])),
             map((dto: DayRequest[]) =>
@@ -107,14 +107,14 @@ export class ShiftService {
 
     // Get all planning data for the chosen year/month
     get_planning(year: number, month: number): Observable<PlannedDay[]> {
-        return this.http.get<PlannedDay[]>(this.url + "planning/" + year + "/" + month).pipe(
+        return this.http.get<PlannedDay[]>(this.url + "/planning/" + year + "/" + month).pipe(
             tap(req => console.log(req)),
             catchError(this.handleError("get_planned", <PlannedDay[]>[]))
         )
     }
 
     get_confirmed_shifts(userId: number, year: number, month: number): Observable<AcceptedShifts> { // Get all shifts you requested that were planned
-        return this.http.get<AcceptedShifts>(this.url + "confirmed/" + userId + "/" + year + "/" + month).pipe(
+        return this.http.get<AcceptedShifts>(this.url + "/confirmed/" + userId + "/" + year + "/" + month).pipe(
             tap(req => console.log(req)),
             catchError(this.handleError("get_confirmed", <AcceptedShifts>{}))
         );
@@ -122,21 +122,21 @@ export class ShiftService {
 
     lock_month(date: Date, locked: boolean): Observable<any> {
         // Need to reformat the date because of DateOnly shenanigens on the back-end
-        return this.http.put(this.url + "planning/lock", { Date: date.toISOString().substring(0, 10), Locked: locked } ).pipe(
+        return this.http.put(this.url + "/planning/lock", { Date: date.toISOString().substring(0, 10), Locked: locked } ).pipe(
             tap(req => console.log(req)),
             catchError(this.handleError("lock_month", "null"))
         )
     }
 
     update_shift_request(userId: number, shift: Date, isRequested: boolean): Observable<boolean> {
-        return this.http.put<boolean>(this.url + "requests/update/" + userId, { shift: shift.toISOString(), isRequested: isRequested }).pipe(
+        return this.http.put<boolean>(this.url + "/requests/update/" + userId, { shift: shift.toISOString(), isRequested: isRequested }).pipe(
             tap(req => console.log(req)),
             catchError(this.handleError("update_shift_request", false))
         )
     }
 
     update_shift_planning(dto: UpdateShiftPlanningDTO): Observable<boolean> {
-        return this.http.put<boolean>(this.url + "planning/update", dto).pipe(
+        return this.http.put<boolean>(this.url + "/planning/update", dto).pipe(
             tap(req => console.log(req)),
             catchError(this.handleError("update_shift_planning", false))
         )
