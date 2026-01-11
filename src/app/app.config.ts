@@ -50,7 +50,6 @@ export const appConfig: ApplicationConfig = {
                 }
                 router.navigate(["/login"])
                 return of();
-                // return throwError(() => err.error)
             })
         );
     }),
