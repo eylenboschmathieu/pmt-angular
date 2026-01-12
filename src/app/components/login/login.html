@@ -1,1 +1,30 @@
 <div id="login-container"></div>
+
+<p>Create a user to check out the app<br>(requires gmail account)</p>
+<form class="form-group" [formGroup]="createForm" (ngSubmit)="addUser()">
+    <label>Email:</label>
+    <input type="text" formControlName="email" id="email" required />
+    @if (createForm.get("email")?.invalid && createForm.get("email")?.touched) {
+    <div class="alert alert-danger ms-2 mt-2 p-2">
+        @if (createForm.get("email")?.errors?.["required"]) {
+        <div>Required</div>
+        }
+        @if (createForm.get("email")?.errors?.["email"]) {
+        <div>Must be a valid gmail address</div>
+        }
+    </div>
+    }
+    <label>Confirm email:</label>
+    <input type="text" formControlName="emailConfirmation" id="emailConfirmation" required />
+    @if (createForm.get("emailConfirmation")?.invalid && createForm.get("emailConfirmation")?.touched) {
+    <div class="alert alert-danger ms-2 mt-2 p-2">
+        @if (createForm.get("emailConfirmation")?.errors?.["emailMismatch"]) {
+        <div>Email mismatch</div>
+        }
+        @if (createForm.get("emailConfirmation")?.errors?.["required"]) {
+        <div>Required</div>
+        }
+    </div>
+    }
+    <button class="btn btn-primary" type="submit" [disabled]="!createForm.valid">Create</button>
+</form>

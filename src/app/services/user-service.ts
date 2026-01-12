@@ -74,6 +74,12 @@ export class UserService {
         );
     }
 
+    demo_add(user: NewUserDTO): Observable<void> {
+        return this.http.post<void>(this.url + "/demo_new", user).pipe(
+            catchError(this.handleError("add", void 0))
+        );
+    }
+
     update(user: UpdateUserDTO): Observable<boolean> {
         return this.http.put<boolean>(this.url + "/update/" + user.id, user).pipe(
             catchError(this.handleError("update", false))

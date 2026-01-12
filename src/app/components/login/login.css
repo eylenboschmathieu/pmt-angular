@@ -3,3 +3,37 @@
     margin: 40px auto;
     align-self: center;
 }
+
+p {
+    margin: auto;
+    width: fit-content;
+    padding: 8px;
+}
+
+label, input, button {
+    display: block;
+}
+
+button {
+    margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+    form {
+        width: 100%;
+    }
+
+    label {
+        width: calc(100% - 32px);
+        margin: 8px auto;
+    }
+
+    input {
+        width: calc(100% - 32px);
+        margin: 8px auto;
+    }
+
+    button {
+        margin: 16px auto;
+    }
+}
