@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { catchError, tap } from "rxjs";
 import { Observable, of } from "rxjs";
-import { Role } from "../entities/Role";
+import { Role as RoleDTO } from "../entities/Role";
 import { environment } from "../../environments/environment";
 
 export { Role } from "../entities/Role";
@@ -15,10 +15,10 @@ export class RoleService {
 
     constructor(private http: HttpClient) {}
 
-    all() : Observable<Role[]>{
-        return this.http.get<Role[]>(this.url).pipe(
+    all() : Observable<RoleDTO[]>{
+        return this.http.get<RoleDTO[]>(this.url).pipe(
             tap(req => console.log(req)),
-            catchError(this.handleError('findRoles', []))
+            catchError(this.handleError('all', []))
         );
     }
 
