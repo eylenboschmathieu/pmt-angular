@@ -11,8 +11,6 @@
                 </option>
             }
             </select>
-        } @else {
-            <p>{{ users[0].name }}</p>
         }
         <select [(ngModel)]="selected_date" (ngModelChange)="selectDate($event)">
             @for (date of dates; track $index) {
