@@ -37,6 +37,16 @@ export class UpdateShiftPlanningDTO {
     shiftId!: number
 }
 
+class OverviewDataUser {
+    name!: string
+    hours!: number[]
+}
+
+export class OverviewDataDTO {
+    months!: Date[]
+    users!: OverviewDataUser[]
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -78,7 +88,7 @@ export class ShiftService {
         // C# DateOnly objects are fetched from backend, so have to map them to Typescript Date objects.
         // Are treated as strings otherwise
         return this.http.get<DateDTO[]>(this.url + "/planning/dates").pipe(
-            tap(req => console.log(req)),
+            tap(res => console.log(res)),
             catchError(this.handleError("get_planning_dates", [])),
             map((dto: DateDTO[]) =>
                 dto.map(e => ({
@@ -99,7 +109,7 @@ export class ShiftService {
         } : {};
 
         return this.http.get<DayRequestDTO[]>(this.url + "/requests", queryParams).pipe(
-            tap(req => console.log(req)),
+            tap(res => console.log(res)),
             catchError(this.handleError("get_requested", <DayRequestDTO[]>[])),
             map((dto: DayRequestDTO[]) =>
                 dto.map(data => <DayRequestDTO> {
@@ -119,7 +129,7 @@ export class ShiftService {
         } : {};
 
         return this.http.get<PlannedDayDTO[]>(this.url + "/planning", queryParams).pipe(
-            tap(req => console.log(req)),
+            tap(res => console.log(res)),
             catchError(this.handleError("get_planned", <PlannedDayDTO[]>[]))
         )
     }
@@ -132,7 +142,7 @@ export class ShiftService {
         } : {};
 
         return this.http.get<AcceptedShiftsDTO>(this.url + "/confirmed", queryParams).pipe(
-            tap(req => console.log(req)),
+            tap(res => console.log(res)),
             catchError(this.handleError("get_confirmed", <AcceptedShiftsDTO>{}))
         );
     }
@@ -140,7 +150,7 @@ export class ShiftService {
     lock_month(date: Date, locked: boolean): Observable<any> {
         // Need to reformat the date because of DateOnly shenanigens on the back-end
         return this.http.put(this.url + "/planning/lock", { Date: date.toISOString().substring(0, 10), Locked: locked } ).pipe(
-            tap(req => console.log(req)),
+            tap(res => console.log(res)),
             catchError(this.handleError("lock_month", "null"))
         )
     }
@@ -149,15 +159,56 @@ export class ShiftService {
         const queryParams = userId ? { params: new HttpParams().set('userId', userId) } : {};
 
         return this.http.put<boolean>(this.url + "/requests/update/", { shift: shift.toISOString(), isRequested: isRequested }, queryParams).pipe(
-            tap(req => console.log(req)),
+            tap(res => console.log(res)),
             catchError(this.handleError("update_shift_request", false))
         )
     }
 
     update_shift_planning(dto: UpdateShiftPlanningDTO): Observable<boolean> {
         return this.http.put<boolean>(this.url + "/planning/update", dto).pipe(
-            tap(req => console.log(req)),
+            tap(res => console.log(res)),
             catchError(this.handleError("update_shift_planning", false))
+        )
+    }
+
+    get_overview(): Observable<OverviewDataDTO> {
+        var data: OverviewDataDTO = {
+            months: [
+                new Date(2025, 3, 1),
+                new Date(2025, 4, 1),
+                new Date(2025, 5, 1),
+                new Date(2025, 6, 1), 
+                new Date(2025, 7, 1),
+                new Date(2025, 8, 1),
+                new Date(2025, 9, 1),
+                new Date(2025, 10, 1),
+                new Date(2025, 11, 1),
+                new Date(2026, 0, 1)
+            ],
+            users: [
+                {
+                    name: "Eylenbosch Mathieu",
+                    hours: [12, 36, 48, 12, 0, 4, 14, 60, 8, 16]
+                },
+                {
+                    name: "Eylenbosch Margot",
+                    hours: [4, 14, 60, 8, 16, 4, 14, 60, 8, 16]
+                },
+                {
+                    name: "Eylenbosch Matthias",
+                    hours: [8, 20, 40, 60, 4, 4, 14, 60, 8, 16]
+                },
+                {
+                    name: "Eylenbosch Marjolein",
+                    hours: [48, 0, 12, 0, 0, 4, 14, 60, 8, 16]
+                },
+            ]
+        }
+
+
+        return this.http.get<OverviewDataDTO>(this.url + "/overview").pipe(
+            tap(res => console.log(res)),
+            catchError(this.handleError("get_overview", data))
         )
     }
 
