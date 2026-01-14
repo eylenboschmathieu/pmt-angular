@@ -1,0 +1,9 @@
+td:first-child {
+    min-width: 312px;
+    width: 312px;
+}
+
+td:not(:first-child) {
+    min-width: 96px;
+    width: 96px;
+}

@@ -13,6 +13,7 @@ import { ParamedicAcceptedComponent } from './components/paramedic-accepted/para
 import { ParamedicRequestedComponent } from './components/paramedic-requested/paramedic-requested';
 import { ManagementPlanningComponent } from './components/management-planning/management-planning';
 import { Error500 } from './components/error500/error500';
+import { ManagementOverviewComponent } from './components/management-overview/management-overview';
 
 export const routes: Routes = [
     {
@@ -35,13 +36,18 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
+        component: UsersComponent,
+        path: "users",
+        canActivate: [AuthGuard]
+    },
+    {
         component: ManagementPlanningComponent,
         path: "management/planning",
         canActivate: [AuthGuard]
     },
     {
-        component: UsersComponent,
-        path: "users",
+        component: ManagementOverviewComponent,
+        path: "management/overview",
         canActivate: [AuthGuard]
     },
     {
