@@ -12,11 +12,16 @@ import { DatePipe } from '@angular/common';
 export class ManagementOverviewComponent {
     constructor(private shiftService: ShiftService) { }
 
+    initialized: boolean = false
     overview_data!: OverviewDataDTO
 
     ngOnInit() {
         this.shiftService.get_overview().subscribe({
-            next: (res: OverviewDataDTO) => this.overview_data = res
+            next: (res: OverviewDataDTO) => {
+                this.overview_data = res
+                console.log(res)
+                this.initialized = true
+            }
         })
     }
 }

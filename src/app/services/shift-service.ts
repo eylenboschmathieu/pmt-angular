@@ -40,6 +40,7 @@ export class UpdateShiftPlanningDTO {
 class OverviewDataUser {
     name!: string
     hours!: number[]
+    total!: number
 }
 
 export class OverviewDataDTO {
@@ -188,26 +189,33 @@ export class ShiftService {
             users: [
                 {
                     name: "Eylenbosch Mathieu",
-                    hours: [12, 36, 48, 12, 0, 4, 14, 60, 8, 16]
+                    hours: [12, 36, 48, 12, 0, 4, 14, 60, 8, 16],
+                    total: 1234
                 },
                 {
                     name: "Eylenbosch Margot",
-                    hours: [4, 14, 60, 8, 16, 4, 14, 60, 8, 16]
+                    hours: [4, 14, 60, 8, 16, 4, 14, 60, 8, 16],
+                    total: 3456
                 },
                 {
                     name: "Eylenbosch Matthias",
-                    hours: [8, 20, 40, 60, 4, 4, 14, 60, 8, 16]
+                    hours: [8, 20, 40, 60, 4, 4, 14, 60, 8, 16],
+                    total: 455
                 },
                 {
                     name: "Eylenbosch Marjolein",
-                    hours: [48, 0, 12, 0, 0, 4, 14, 60, 8, 16]
+                    hours: [48, 0, 12, 0, 0, 4, 14, 60, 8, 16],
+                    total: 1112
                 },
             ]
         }
 
 
         return this.http.get<OverviewDataDTO>(this.url + "/overview").pipe(
-            tap(res => console.log(res)),
+            tap(res => {
+                console.log(res)
+                res.months.forEach((date: Date, hours: number) => date = new Date(date))
+            }),
             catchError(this.handleError("get_overview", data))
         )
     }
