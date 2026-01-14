@@ -19,13 +19,13 @@ export class ParamedicAcceptedComponent {
 
     initialized!: boolean
 
-    users: UserSelectDTO[] = [];
-    selected_user: UserSelectDTO = null!
+    users!: UserSelectDTO[]
+    selected_user!: UserSelectDTO
 
-    dates: DateDTO[] = []
-    selected_date: Date = null!
+    dates!: DateDTO[]
+    selected_date!: Date
 
-    accepted_shifts: AcceptedShifts = null!;
+    accepted_shifts!: AcceptedShifts
     
     ngOnInit(): void {
         this.userService.list().subscribe({
