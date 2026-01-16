@@ -13,6 +13,7 @@ export class ManagementOverviewComponent {
     constructor(private shiftService: ShiftService) { }
 
     initialized: boolean = false
+    show_info: boolean = false
     overview_data!: OverviewDataDTO
 
     ngOnInit() {
@@ -23,5 +24,9 @@ export class ManagementOverviewComponent {
                 this.initialized = true
             }
         })
+    }
+
+    toggle_info(): void {
+        this.show_info = !this.show_info;
     }
 }

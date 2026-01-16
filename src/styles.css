@@ -23,6 +23,18 @@ a.homelink:hover {
     color: pink;
 }
 
+.info-icon {
+    cursor: pointer;
+    float: right;
+    margin: 12px;
+    width: fit-content;
+    font-size: 1.2em;
+}
+
+.table-responsive {
+    width: 100%;
+}
+
 @media (max-width: 768px) {
     a.homelink {
         margin: 4px 16px;

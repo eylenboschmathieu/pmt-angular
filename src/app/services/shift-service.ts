@@ -175,58 +175,12 @@ export class ShiftService {
     }
 
     get_overview(): Observable<OverviewDataDTO> {
-        var data: OverviewDataDTO = {
-            months: [
-                new Date(2025, 3, 1),
-                new Date(2025, 4, 1),
-                new Date(2025, 5, 1),
-                new Date(2025, 6, 1), 
-                new Date(2025, 7, 1),
-                new Date(2025, 8, 1),
-                new Date(2025, 9, 1),
-                new Date(2025, 10, 1),
-                new Date(2025, 11, 1),
-                new Date(2026, 0, 1)
-            ],
-            users: [
-                {
-                    id: 1,
-                    name: "Eylenbosch Mathieu",
-                    confirmed: [12, 36, 48, 12, 0, 4, 14, 60, 8, 16],
-                    total: 1234,
-                    requested: 2345
-                },
-                {
-                    id: 2,
-                    name: "Eylenbosch Margot",
-                    confirmed: [4, 14, 60, 8, 16, 4, 14, 60, 8, 16],
-                    total: 3456,
-                    requested: 4567
-                },
-                {
-                    id: 3,
-                    name: "Eylenbosch Matthias",
-                    confirmed: [8, 20, 40, 60, 4, 4, 14, 60, 8, 16],
-                    total: 455,
-                    requested: 2223
-                },
-                {
-                    id: 4,
-                    name: "Eylenbosch Marjolein",
-                    confirmed: [48, 0, 12, 0, 0, 4, 14, 60, 8, 16],
-                    total: 1112,
-                    requested: 1112
-                },
-            ]
-        }
-
-
         return this.http.get<OverviewDataDTO>(this.url + "/overview").pipe(
             tap(res => {
                 console.log(res)
-                res.months.forEach((date: Date, hours: number) => date = new Date(date))
+                res.months.forEach((date: Date) => date = new Date(date))
             }),
-            catchError(this.handleError("get_overview", data))
+            catchError(this.handleError("get_overview", new OverviewDataDTO()))
         )
     }
 

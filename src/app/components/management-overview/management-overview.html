@@ -1,4 +1,15 @@
-<a class="homelink" routerLink="/home">&#8594; Home</a>
+<div style="width: 100%;">
+    <a class="homelink" routerLink="/home">&#8594; Home</a>
+    <div class="info-icon" (click)="toggle_info()"><i class="bi bi-info-circle"></i></div>
+</div>
+
+@if (show_info) {
+    <div class="alert alert-info">
+        <span>Total: Total hours worked in the last 12 months.</span><br>
+        <span>Requested: Total of hours requested to work in the last 12 months.</span>
+        <br>
+    </div>
+}
 
 @if (initialized) {
     <div class="table-responsive">
