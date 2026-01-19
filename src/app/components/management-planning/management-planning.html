@@ -14,8 +14,8 @@
     </section>
 
     <section class="data">
-        @for (day of days; track $index ) { 
-            @for (shift of day.shifts; track $index) {
+        @for (day of days; track $index; let day_index = $index ) { 
+            @for (shift of day.shifts; track $index; let shift_index = $index) {
                 <div class="shift">
                     <div>
                         <span class="day">{{ day.date | date: "E d MMM" }}</span>
@@ -45,11 +45,11 @@
 
                                 @if (!selected_date.locked && bShowDropdown == -1 && shift.volunteered.length > 0 && shift.confirmed.length < 3) {
                                     <li>
-                                        <i class="bi bi-plus-circle add-person" (click)="this.bShowDropdown = $index"></i>
+                                        <i class="bi bi-plus-circle add-person" (click)="this.bShowDropdown = day_index * 5 + shift_index"></i>
                                     </li>
                                 }
 
-                                @if (bShowDropdown == $index) {
+                                @if (bShowDropdown == day_index * 5 + shift_index) {
                                     <li>
                                         <select ngModel (ngModelChange)="selectPick($event, shift)">
                                             <option value="" disabled>Select person to add</option>
