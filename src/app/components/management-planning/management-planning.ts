@@ -18,6 +18,7 @@ export class ManagementPlanningComponent {
     initialized!: boolean
     dates: DateDTO[] = []
     selected_date!: DateDTO
+    bShowDropdown: number = -1  // Set to -1 to hide all dropdown select boxes
 
     days: PlannedDayDTO[] = []
 
@@ -33,6 +34,7 @@ export class ManagementPlanningComponent {
     }
 
     selectDate(date: DateDTO): void {
+        this.bShowDropdown = -1
         this.selected_date = date
         this.shiftService.get_planning(this.selected_date.date.getFullYear(), this.selected_date.date.getMonth() + 1).subscribe({
             next: (planned_days: PlannedDayDTO[]) => {
@@ -52,8 +54,6 @@ export class ManagementPlanningComponent {
     }
 
     // Line
-    
-    bShowDropdown: number = -1
 
     isFull(shift: PlannedShift): boolean {
         if (shift === null)

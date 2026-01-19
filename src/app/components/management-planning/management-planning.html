@@ -14,6 +14,7 @@
     </section>
 
     <section class="data">
+        @let shifts_in_day = shiftService.ShiftHours.length;
         @for (day of days; track $index; let day_index = $index ) { 
             @for (shift of day.shifts; track $index; let shift_index = $index) {
                 <div class="shift">
@@ -45,11 +46,11 @@
 
                                 @if (!selected_date.locked && bShowDropdown == -1 && shift.volunteered.length > 0 && shift.confirmed.length < 3) {
                                     <li>
-                                        <i class="bi bi-plus-circle add-person" (click)="this.bShowDropdown = day_index * 5 + shift_index"></i>
+                                        <i class="bi bi-plus-circle add-person" (click)="this.bShowDropdown = day_index * shifts_in_day + shift_index"></i>
                                     </li>
                                 }
 
-                                @if (bShowDropdown == day_index * 5 + shift_index) {
+                                @if (bShowDropdown == day_index * shifts_in_day + shift_index) {
                                     <li>
                                         <select ngModel (ngModelChange)="selectPick($event, shift)">
                                             <option value="" disabled>Select person to add</option>
