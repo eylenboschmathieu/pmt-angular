@@ -23,8 +23,12 @@ nav>ul li {
     color: white;
     border-radius: 8px;
     border: 1px solid black;
-    background-color: gray;
+    background: linear-gradient(to right, #456, gray);
     text-decoration: none;
     padding: 8px 16px;
     cursor: pointer;
+}
+
+.btn-logout:hover {
+    background: linear-gradient(to right, #459 80%, gray);
 }
