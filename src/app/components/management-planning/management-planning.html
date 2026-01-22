@@ -6,11 +6,7 @@
                 <option [ngValue]="date">{{ date.date | date:"MMMM yyyy" }}</option>
             }
         </select>
-        @if (selected_date.locked) {
-            <i class="bi bi-lock lock" (click)="lockMonth(false)"></i>
-        } @else {
-            <i class="bi bi-unlock unlock" (click)="lockMonth(true)"></i>
-        }
+        <i class="bi" [classList]="this.selected_date.locked ? 'bi-lock lock' : 'bi-unlock unlock'" (click)="lockMonth()"></i>
     </section>
 
     <section class="data">

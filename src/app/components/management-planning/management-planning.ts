@@ -43,10 +43,12 @@ export class ManagementPlanningComponent {
         })
     }
 
-    lockMonth(flag: boolean): void {
+    lockMonth(): void {
+        var flag = !this.selected_date.locked
         this.shiftService.lock_month(this.selected_date.date, flag).subscribe({
             next: res => {
-                if (res) {  // Response returns true if lock was successful
+                if (res) {// Response returns true if lock was successful
+                    console.log("Planning:", this.selected_date.date.toUTCString(), "is now", flag ? "locked" : "unlocked")
                     this.selected_date.locked = flag
                 }
             }
@@ -64,12 +66,11 @@ export class ManagementPlanningComponent {
 
     selectPick(shiftId: number, shift: PlannedShift): void {
         const index: number = shift.volunteered.findIndex(volunteer => volunteer.id === shiftId, 0)
-        console.log("shiftId: " + shiftId)
         if (index > -1) {
             this.bShowDropdown = -1
 
             var dto: UpdateShiftPlanningDTO = {
-                confirm: true,
+                planned: true,
                 shiftId: shiftId
             }
 
@@ -88,7 +89,7 @@ export class ManagementPlanningComponent {
         const index: number = shift.confirmed.findIndex(volunteer => volunteer.id === shiftId, 0)
         if (index > -1) {
             var dto: UpdateShiftPlanningDTO = {
-                confirm: false,
+                planned: false,
                 shiftId: shiftId
             }
 

@@ -33,7 +33,7 @@ export class ShiftHours {
 }
 
 export class UpdateShiftPlanningDTO {
-    confirm!: boolean
+    planned!: boolean
     shiftId!: number
 }
 
