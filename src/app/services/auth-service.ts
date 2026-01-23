@@ -61,13 +61,13 @@ export class AuthService {
         this.http.post<AuthResponse>(environment.ENDPOINT_URI + "/login", JSON.stringify(google_response.credential), { withCredentials: true, headers: headers }).subscribe({
             next: (res: any) => {
                 if (res) {
-                    this._access_token = res.access_token
                     var decoded = this.decodedAccessToken(res.access_token)
                     this._user = {
                         Id: decoded.sub,
                         Name: decoded.name,
                         Roles: decoded.Roles
                     }
+                    this._access_token = res.access_token
                     console.log(`Logged in ${decoded.name}!`)
                     this.shiftService.get_shift_hours()
                     this.router.navigate(["/home"])
@@ -218,10 +218,12 @@ export class AuthService {
     signout() {
         this.http.post(environment.ENDPOINT_URI + "/logout", null, { withCredentials: true }).subscribe({
             next: (res: any) => {
-                console.log("signout()");
-                this.clear()
-                google.accounts.id.disableAutoSelect();
-                this.router.navigate(["/login"]);
+                if (res) {  // Logged out on back-end
+                    console.log("signout()");
+                    this.clear()
+                    google.accounts.id.disableAutoSelect();
+                    this.router.navigate(["/login"]);
+                }
             },
             error: (err) => {
                 console.log(err);
