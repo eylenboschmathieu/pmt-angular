@@ -18,6 +18,7 @@ export class DayShiftRequest {
     @Output() onShiftToggle = new EventEmitter();
 
     ngOnChanges(): void {
+        console.log("DayShiftRequest.ngOnChanges()")
         this.cross_day = this.day.shifts.every(b => b === false)
     }
 

@@ -86,9 +86,14 @@ export class ParamedicRequestedComponent {
         if (day) {
             this.shiftService.update_shift_request(this.selected_user.id, this.toDateTimeUTC(day.date, event.shift), event.flag).subscribe({
                 next: e => {
-                    console.log("Request updated: " + e)
-                    if (e)
-                        day.shifts[event.shift] = event.flag
+                    if (e) {
+                        console.log("Request updated: " + e)
+                        this.days = this.days.map(d => d.date === event.date ? {
+                                ...d,
+                                shifts: d.shifts.map((x, i) => i === event.shift ? event.flag : x)
+                            } : d
+                        );
+                    }
                 }
             })
         }
